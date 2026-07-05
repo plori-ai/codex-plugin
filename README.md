@@ -39,11 +39,11 @@ codex mcp login plori
 ## What is inside
 
 ```
-.agents/plugins/marketplace.json      # this marketplace, lists the plori plugin
-plugins/plori/
-  .codex-plugin/plugin.json           # the plugin manifest
-  .mcp.json                           # remote MCP server (api.plori.ai/mcp)
-  skills/plori/SKILL.md               # the plori skill
+.codex-plugin/plugin.json           # the plugin manifest
+.mcp.json                           # remote MCP server (api.plori.ai/mcp)
+skills/plori/SKILL.md               # the plori skill
+.agents/plugins/marketplace.json    # self-marketplace (lists this plugin at ./)
+SECURITY.md                         # vulnerability disclosure policy
 ```
 
 Nothing here runs local code or installs third-party software: the plugin only points

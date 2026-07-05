@@ -9,7 +9,7 @@
       "displayName": "plori",
       "source": {
         "source": "local",
-        "path": "./plugins/plori"
+        "path": "./"
       },
       "policy": {
         "installation": "AVAILABLE",
