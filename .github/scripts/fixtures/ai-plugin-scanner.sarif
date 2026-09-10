@@ -1,0 +1,298 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "plugin-scanner",
+          "informationUri": "https://github.com/hashgraph-online/hol-guard",
+          "version": "2.0.990",
+          "rules": [
+            {
+              "id": "RISKY_SKILL_INSTRUCTION",
+              "name": "Risky local skill instruction detected",
+              "shortDescription": {
+                "text": "Risky local skill instruction detected"
+              },
+              "fullDescription": {
+                "text": "The skill includes \"curl -fsSL https://plori.ai/install.sh\" and sends workspace data to a remote endpoint."
+              },
+              "help": {
+                "text": "Remove instructions that read sensitive local files, launch shell wrappers, or send workspace data to remote endpoints."
+              },
+              "properties": {
+                "tags": [
+                  "skill-security",
+                  "native"
+                ],
+                "precision": "high",
+                "problem.severity": "high"
+              }
+            },
+            {
+              "id": "PIPELINE_TAINT_FLOW",
+              "name": "Dangerous data flow in command pipeline",
+              "shortDescription": {
+                "text": "Dangerous data flow in command pipeline"
+              },
+              "fullDescription": {
+                "text": "Pipeline downloads data from the network and executes it: `curl -fsSL https://plori.ai/install.sh | sh`. This is a remote code execution pattern. (Note: appears to be instructional install text in SKILL.md; review URL trust and pinning.)"
+              },
+              "help": {
+                "text": "Review the command pipeline. Avoid piping sensitive data to network commands or shell execution."
+              },
+              "properties": {
+                "tags": [
+                  "skill-security",
+                  "cisco-skill-scanner"
+                ],
+                "precision": "high",
+                "problem.severity": "low"
+              }
+            },
+            {
+              "id": "PLUGIN_JSON_INTERFACE_ASSET_COMPOSERICON",
+              "name": "Interface asset or URL \"composerIcon\" is invalid",
+              "shortDescription": {
+                "text": "Interface asset or URL \"composerIcon\" is invalid"
+              },
+              "fullDescription": {
+                "text": "The interface field \"composerIcon\" must use HTTPS or point to a safe in-repo asset."
+              },
+              "help": {
+                "text": "Update \"composerIcon\" to use HTTPS or an existing relative asset path."
+              },
+              "properties": {
+                "tags": [
+                  "manifest-validation",
+                  "native"
+                ],
+                "precision": "high",
+                "problem.severity": "info"
+              }
+            },
+            {
+              "id": "PLUGIN_JSON_INTERFACE_ASSET_LOGO",
+              "name": "Interface asset or URL \"logo\" is invalid",
+              "shortDescription": {
+                "text": "Interface asset or URL \"logo\" is invalid"
+              },
+              "fullDescription": {
+                "text": "The interface field \"logo\" must use HTTPS or point to a safe in-repo asset."
+              },
+              "help": {
+                "text": "Update \"logo\" to use HTTPS or an existing relative asset path."
+              },
+              "properties": {
+                "tags": [
+                  "manifest-validation",
+                  "native"
+                ],
+                "precision": "high",
+                "problem.severity": "info"
+              }
+            },
+            {
+              "id": "PLUGIN_JSON_INTERFACE_ASSET_SCREENSHOTS",
+              "name": "Interface asset or URL \"screenshots\" is invalid",
+              "shortDescription": {
+                "text": "Interface asset or URL \"screenshots\" is invalid"
+              },
+              "fullDescription": {
+                "text": "The interface field \"screenshots\" must use HTTPS or point to a safe in-repo asset."
+              },
+              "help": {
+                "text": "Update \"screenshots\" to use HTTPS or an existing relative asset path."
+              },
+              "properties": {
+                "tags": [
+                  "manifest-validation",
+                  "native"
+                ],
+                "precision": "high",
+                "problem.severity": "info"
+              }
+            },
+            {
+              "id": "MANIFEST_MISSING_LICENSE",
+              "name": "Skill does not specify a license",
+              "shortDescription": {
+                "text": "Skill does not specify a license"
+              },
+              "fullDescription": {
+                "text": "Skill manifest does not include a 'license' field. Specifying a license helps users understand usage terms."
+              },
+              "help": {
+                "text": "Add 'license' field to SKILL.md frontmatter (e.g., MIT, Apache-2.0)"
+              },
+              "properties": {
+                "tags": [
+                  "skill-security",
+                  "cisco-skill-scanner"
+                ],
+                "precision": "high",
+                "problem.severity": "info"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "RISKY_SKILL_INSTRUCTION",
+          "level": "error",
+          "message": {
+            "text": "The skill includes \"curl -fsSL https://plori.ai/install.sh\" and sends workspace data to a remote endpoint."
+          },
+          "properties": {
+            "severity": "high",
+            "category": "skill-security",
+            "source": "native"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "skills/plori/SKILL.md"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "PIPELINE_TAINT_FLOW",
+          "level": "note",
+          "message": {
+            "text": "Pipeline downloads data from the network and executes it: `curl -fsSL https://plori.ai/install.sh | sh`. This is a remote code execution pattern. (Note: appears to be instructional install text in SKILL.md; review URL trust and pinning.)"
+          },
+          "properties": {
+            "severity": "low",
+            "category": "skill-security",
+            "source": "cisco-skill-scanner"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "skills/plori/SKILL.md"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "PIPELINE_TAINT_FLOW",
+          "level": "note",
+          "message": {
+            "text": "Pipeline downloads data from the network and executes it: `irm https://plori.ai/install.ps1 | iex`. This is a remote code execution pattern. (Note: appears to be instructional install text in SKILL.md; review URL trust and pinning.)"
+          },
+          "properties": {
+            "severity": "low",
+            "category": "skill-security",
+            "source": "cisco-skill-scanner"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "skills/plori/SKILL.md"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "PLUGIN_JSON_INTERFACE_ASSET_COMPOSERICON",
+          "level": "note",
+          "message": {
+            "text": "The interface field \"composerIcon\" must use HTTPS or point to a safe in-repo asset."
+          },
+          "properties": {
+            "severity": "info",
+            "category": "manifest-validation",
+            "source": "native"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ".codex-plugin/plugin.json"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "PLUGIN_JSON_INTERFACE_ASSET_LOGO",
+          "level": "note",
+          "message": {
+            "text": "The interface field \"logo\" must use HTTPS or point to a safe in-repo asset."
+          },
+          "properties": {
+            "severity": "info",
+            "category": "manifest-validation",
+            "source": "native"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ".codex-plugin/plugin.json"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "PLUGIN_JSON_INTERFACE_ASSET_SCREENSHOTS",
+          "level": "note",
+          "message": {
+            "text": "The interface field \"screenshots\" must use HTTPS or point to a safe in-repo asset."
+          },
+          "properties": {
+            "severity": "info",
+            "category": "manifest-validation",
+            "source": "native"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ".codex-plugin/plugin.json"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "MANIFEST_MISSING_LICENSE",
+          "level": "note",
+          "message": {
+            "text": "Skill manifest does not include a 'license' field. Specifying a license helps users understand usage terms."
+          },
+          "properties": {
+            "severity": "info",
+            "category": "skill-security",
+            "source": "cisco-skill-scanner"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "skills/plori/SKILL.md"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
