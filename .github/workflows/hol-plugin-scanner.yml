@@ -15,7 +15,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Test scanner review gate
+        run: python3 -B .github/scripts/test_review_plugin_scan.py -v
       - name: HOL Plugin Scanner
+        id: plugin_scan
+        continue-on-error: true
         uses: hashgraph-online/ai-plugin-scanner-action@4dc1dbf5febd7ab30fd38ba346fe64e8fcf774dc # v1
         with:
           plugin_dir: "."
@@ -24,10 +28,23 @@ jobs:
           fail_on_severity: high
           format: sarif
           upload_sarif: true
+      - name: Review scanner result
+        if: always()
+        env:
+          SCANNER_SCORE: ${{ steps.plugin_scan.outputs.score }}
+          SCANNER_ACTION_EXIT_CODE: ${{ steps.plugin_scan.outputs.action_exit_code }}
+          SCANNER_OUTCOME: ${{ steps.plugin_scan.outcome }}
+        run: >-
+          python3 .github/scripts/review-plugin-scan.py
+          --sarif ai-plugin-scanner.sarif
+          --skill skills/plori/SKILL.md
+          --score "$SCANNER_SCORE"
+          --action-exit-code "$SCANNER_ACTION_EXIT_CODE"
+          --outcome "$SCANNER_OUTCOME"
       - name: Retain scanner findings
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: plugin-scanner-findings
           path: ai-plugin-scanner.sarif
-          if-no-files-found: warn
+          if-no-files-found: error
