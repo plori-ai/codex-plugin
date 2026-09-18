@@ -10,7 +10,7 @@ from pathlib import Path
 
 
 EXPECTED_SKILL_PATH = "skills/plori/SKILL.md"
-EXPECTED_SKILL_SHA256 = "7e985c0c5cabad00528010173b16ec92d017cdcd0890cfd618a7e999a3e6e684"
+EXPECTED_SKILL_SHA256 = "9d17401502ef265a342af61c08a3876cb112356470afbdae4255e811fbfe0341"
 EXPECTED_RULE_ID = "RISKY_SKILL_INSTRUCTION"
 EXPECTED_MESSAGE = (
     'The skill includes "curl -fsSL https://plori.ai/install.sh" and sends '
