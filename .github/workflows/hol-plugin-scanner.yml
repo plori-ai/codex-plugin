@@ -20,7 +20,7 @@ jobs:
       - name: HOL Plugin Scanner
         id: plugin_scan
         continue-on-error: true
-        uses: hashgraph-online/ai-plugin-scanner-action@4dc1dbf5febd7ab30fd38ba346fe64e8fcf774dc # v1
+        uses: hashgraph-online/ai-plugin-scanner-action@11ff35008c1dde7d7b0c2978b0cd4f6b495448e8 # v1
         with:
           plugin_dir: "."
           mode: scan
