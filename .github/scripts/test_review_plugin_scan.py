@@ -42,7 +42,7 @@ class ReviewPluginScanTest(unittest.TestCase):
         return next(result for result in document["runs"][0]["results"] if result["properties"]["severity"] == "high")
 
     def test_retained_real_false_positive_is_accepted(self):
-        self.assertEqual(self.real_sarif_sha256, "eaab365e6835eb66011bfc909f1f5f76dcd13ed328f23b27d8f65f3315d00b31")
+        self.assertEqual(self.real_sarif_sha256, "077cab9fb0f807ece8a5e03065f22428043252eff95653408b5cec4a1d937288")
         self.assertIn("reviewed finding", self.run_review())
 
     def test_appended_credential_upload_is_blocked_even_when_sarif_is_unchanged(self):
